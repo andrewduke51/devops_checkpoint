@@ -1,0 +1,12 @@
+*.idea/*
+terraform.tfvars
+.terraform/
+*terraform.tfstate*
+*.retry*
+*ubuntu-xenial-16.04-cloudimg-console*
+*.json*
+*agrant*
+*playbooks*
+*.vagrant/*
+*Vagrantfile*
+*inventories*
