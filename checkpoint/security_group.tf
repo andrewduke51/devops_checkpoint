@@ -1,8 +1,8 @@
 # create dmz security group
 
 resource "aws_security_group" "checkpoint_dmz" {
-  name        = "allow_all"
-  description = "Allow all inbound traffic"
+  name        = "checkpoint_dmz"
+  description = "Allow some inbound traffic"
   vpc_id      = "${aws_vpc.checkpoint_2.id}"
 
   ingress {
@@ -20,5 +20,30 @@ resource "aws_security_group" "checkpoint_dmz" {
   }
   tags {
     Name = "checkpoint_dmz"
+  }
+}
+
+# create internal security group
+
+resource "aws_security_group" "checkpoint_internal" {
+  name        = "checkpoint_internal"
+  description = "allow dmz inbound traffic"
+  vpc_id      = "${aws_vpc.checkpoint_2.id}"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    security_groups = ["${aws_security_group.checkpoint_dmz.id}"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+  tags {
+    Name = "checkpoint_internal"
   }
 }
