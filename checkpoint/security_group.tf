@@ -9,7 +9,7 @@ resource "aws_security_group" "checkpoint_dmz" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${var.ORIGIN_IPS}"]
+    cidr_blocks = ["${split(",", var.ORIGIN_IPS)}"]
   }
 
   egress {
@@ -17,6 +17,8 @@ resource "aws_security_group" "checkpoint_dmz" {
     to_port         = 0
     protocol        = "-1"
     cidr_blocks     = ["0.0.0.0/0"]
-    prefix_list_ids = ["pl-12c4e678"]
+  }
+  tags {
+    Name = "checkpoint_dmz"
   }
 }
