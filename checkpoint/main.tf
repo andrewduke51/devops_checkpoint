@@ -1,5 +1,5 @@
 provider "aws" {
-  region                  = "${var.default_region}"
-  shared_credentials_file = "${var.path_to_cred}"
-  profile                 = "${var.aws_profile}"
+  region                  = "${var.DEFAULT_REGION}"
+  shared_credentials_file = "${var.PATH_TO_CRED}"
+  profile                 = "${var.AWS_PROFILE}"
 }

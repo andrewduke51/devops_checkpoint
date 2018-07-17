@@ -26,6 +26,8 @@ resource "aws_nat_gateway" "checkout_nat_gw" {
   tags {
     Name = "checkout_nat_gw"
   }
+
+  depends_on = ["aws_internet_gateway.checkpoint_gw"]
 }
 
 ## checkpoint dmz ##
@@ -50,5 +52,5 @@ resource "aws_subnet" "checkpoint_internal" {
 
 ## EIP ##
 data "aws_eip" "checkpoint_proxy_ip" {
-  public_ip = "${var.public_ip}"
+  public_ip = "${var.PUBLIC_IP}"
 }

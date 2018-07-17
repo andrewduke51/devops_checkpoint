@@ -5,22 +5,21 @@
 //
 //  filter {
 //    name   = "name"
-//    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+//    values = ["Check Point CloudGuard IaaS BYOL R80.10-*"]
 //  }
 //
 //  filter {
 //    name   = "virtualization-type"
 //    values = ["hvm"]
 //  }
-//
-//  owners = ["*"] # Canonical
 //}
 //
 //resource "aws_instance" "web" {
-//  ami           = "${data.aws_ami.ubuntu.id}"
-//  instance_type = "t2.micro"
+//  ami           = "${data.aws_ami.checkpoint_instance.id}"
+//  instance_type = "m4.large"
+//
 //
 //  tags {
-//    Name = "HelloWorld"
+//    Name = "checkpoint_manager_new"
 //  }
 //}
