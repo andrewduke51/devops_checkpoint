@@ -8,5 +8,6 @@ terraform.tfvars
 *agrant*
 *playbooks*
 *.vagrant/*
+*tech-scripts/*
 *Vagrantfile*
 *inventories*

@@ -34,6 +34,7 @@ resource "aws_nat_gateway" "checkout_nat_gw" {
 resource "aws_subnet" "checkpoint_dmz" {
   vpc_id     = "${aws_vpc.checkpoint_2.id}"
   cidr_block = "10.40.40.0/26"
+  availability_zone = "${var.AVAILABILTY_ZONE}"
 
   tags {
     Name = "Checkpoint_dmz"
@@ -44,6 +45,7 @@ resource "aws_subnet" "checkpoint_dmz" {
 resource "aws_subnet" "checkpoint_internal" {
   vpc_id     = "${aws_vpc.checkpoint_2.id}"
   cidr_block = "10.40.40.64/26"
+  availability_zone = "${var.AVAILABILTY_ZONE}"
 
   tags {
     Name = "Checkpoint_internal"
