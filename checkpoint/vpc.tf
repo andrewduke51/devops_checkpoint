@@ -1,7 +1,6 @@
 ## VPC ##
 resource "aws_vpc" "checkpoint_2" {
   cidr_block       = "10.40.40.0/24"
-  instance_tenancy = "dedicated"
 
   tags {
     Name = "checkpoint_2"
