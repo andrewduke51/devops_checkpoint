@@ -14,7 +14,7 @@ resource "aws_instance" "checkpoint_manager" {
 }
 
 ## eth 0 and EIP DMZ
-resource "aws_eip_association" "eip_association_checkpoint_gateway" {
-  instance_id = "${aws_instance.checkpoint_gateway.id}"
+resource "aws_eip_association" "eip_association_checkpoint_manager" {
+  instance_id = "${aws_instance.checkpoint_manager.id}"
   public_ip   = "${var.MANAGER_PUBLIC_IP}"
 }

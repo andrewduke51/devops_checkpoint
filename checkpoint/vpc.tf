@@ -2,11 +2,6 @@
 resource "aws_vpc" "checkpoint_2" {
   cidr_block = "10.40.40.0/24"
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.checkpoint_gw.id}"
-  }
-
   tags {
     Name = "checkpoint_2"
   }
