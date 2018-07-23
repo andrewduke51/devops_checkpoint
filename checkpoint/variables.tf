@@ -2,7 +2,7 @@ variable "AWS_PROFILE" {}
 
 variable "PATH_TO_CRED" {}
 
-variable "PUBLIC_IP" {}
+variable "NAT_PUBLIC_IP" {}
 
 variable "DEFAULT_REGION" {}
 
@@ -17,3 +17,7 @@ variable "GW_PUBLIC_IP" {}
 variable "AVAILABILTY_ZONE" {}
 
 variable "DEPLOY_KEY" {}
+
+variable "MANAGER_PRIVATE_IP" {}
+
+variable "MANAGER_PUBLIC_IP" {}

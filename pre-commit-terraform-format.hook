@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+for file in $(git diff --name-only --cached --diff-filter=ACM | grep \.tf$)
+do
+  echo ">> Automatically formatting file: $file"
+  terraform fmt $file
+  git add $file
+  echo -e ">> Re-staging file: $file\n"
+done
