@@ -69,7 +69,7 @@ resource "aws_subnet" "checkpoint_internal" {
   }
 }
 
-## route table association ##
+## internal route table association ##
 resource "aws_route_table_association" "checkpoint_internal_route" {
   route_table_id = "${aws_route_table.checkpoint_internal_route_table.id}"
   subnet_id      = "${aws_subnet.checkpoint_internal.id}"
