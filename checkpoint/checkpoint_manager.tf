@@ -9,24 +9,12 @@ resource "aws_instance" "checkpoint_manager" {
   availability_zone      = "${var.AVAILABILTY_ZONE}"
 
   tags {
-    Name = "checkpoint_gateway_new"
+    Name = "checkpoint_manager_new"
   }
 }
 
 ## eth 0 and EIP DMZ
 resource "aws_eip_association" "eip_association_checkpoint_gateway" {
   instance_id = "${aws_instance.checkpoint_gateway.id}"
-  public_ip   = "${var.GW_PUBLIC_IP}"
-}
-
-## eth 1 internal
-resource "aws_network_interface" "checkpoint_gateway_internal" {
-  subnet_id       = "${aws_subnet.checkpoint_internal.id}"
-  private_ips     = ["${var.GW_PRIVATE_IP_ETH1}"]
-  security_groups = ["${aws_security_group.checkpoint_internal.id}"]
-
-  attachment {
-    instance     = "${aws_instance.checkpoint_gateway.id}"
-    device_index = 1
-  }
+  public_ip   = "${var.MANAGER_PUBLIC_IP}"
 }

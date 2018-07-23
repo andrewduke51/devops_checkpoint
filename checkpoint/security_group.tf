@@ -13,11 +13,12 @@ resource "aws_security_group" "checkpoint_dmz" {
   }
 
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
+
   tags {
     Name = "checkpoint_dmz"
   }
@@ -31,18 +32,19 @@ resource "aws_security_group" "checkpoint_internal" {
   vpc_id      = "${aws_vpc.checkpoint_2.id}"
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
     security_groups = ["${aws_security_group.checkpoint_dmz.id}"]
   }
 
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
+
   tags {
     Name = "checkpoint_internal"
   }
