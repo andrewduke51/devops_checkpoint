@@ -81,6 +81,7 @@ resource "aws_route_table" "checkpoint_internal_route_table" {
 
   route {
     cidr_block           = "0.0.0.0/0"
+    instance_id          = "${aws_instance.checkpoint_gateway.id}"
     network_interface_id = "${aws_network_interface.checkpoint_gateway_internal.id}"
   }
 
