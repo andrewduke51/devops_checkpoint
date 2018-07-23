@@ -69,6 +69,26 @@ resource "aws_subnet" "checkpoint_internal" {
   }
 }
 
+## route table association ##
+resource "aws_route_table_association" "checkpoint_internal_route" {
+  route_table_id = "${aws_route_table.checkpoint_internal_route_table.id}"
+  subnet_id      = "${aws_subnet.checkpoint_internal.id}"
+}
+
+## internal route table ##
+resource "aws_route_table" "checkpoint_internal_route_table" {
+  vpc_id = "${aws_vpc.checkpoint_2.id}"
+
+  route {
+    cidr_block           = "0.0.0.0/0"
+    network_interface_id = "${aws_network_interface.checkpoint_gateway_internal.id}"
+  }
+
+  tags {
+    Name = "checkpoint_internal_gw"
+  }
+}
+
 ## EIP ##
 data "aws_eip" "checkpoint_proxy_ip" {
   public_ip = "${var.NAT_PUBLIC_IP}"

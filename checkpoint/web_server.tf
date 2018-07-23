@@ -26,6 +26,6 @@ resource "aws_instance" "web_server" {
   associate_public_ip_address = true
 
   tags {
-    Name = "webserver_new"
+    Name = "checkpoint_webserver_new"
   }
 }
