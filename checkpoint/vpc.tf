@@ -2,10 +2,36 @@
 resource "aws_vpc" "checkpoint_2" {
   cidr_block       = "10.40.40.0/24"
 
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.checkpoint_gw.id}"
+  }
+
   tags {
     Name = "checkpoint_2"
   }
 }
+
+## Add route table ##
+resource "aws_main_route_table_association" "checkpoint_route_table" {
+  route_table_id = "${aws_route_table.checkpoint_route_table.id}"
+  vpc_id = "${aws_vpc.checkpoint_2.id}"
+}
+
+resource "aws_route_table" "checkpoint_route_table" {
+  vpc_id = "${aws_vpc.checkpoint_2.id}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.checkpoint_gw.id}"
+  }
+
+  tags {
+    Name = "Checkpoint_gw"
+  }
+}
+
+
+
 
 ## Internet gateway ##
 resource "aws_internet_gateway" "checkpoint_gw" {
