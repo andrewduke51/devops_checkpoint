@@ -8,7 +8,7 @@ variable "DEFAULT_REGION" {}
 
 variable "ORIGIN_IPS" {}
 
-variable "GW_PRIVATE_IP" {}
+variable "GW_PRIVATE_IP_ETH0" {}
 
 variable "GW_PRIVATE_IP_ETH1" {}
 

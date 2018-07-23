@@ -18,9 +18,13 @@ data "aws_ami" "checkpoint_instance" {
 resource "aws_instance" "checkpoint_gateway" {
   ami               = "${data.aws_ami.checkpoint_instance.id}"
   instance_type     = "m4.large"
-  subnet_id         = "${aws_subnet.checkpoint_dmz.id}"
   key_name          = "${var.DEPLOY_KEY}"
   availability_zone = "${var.AVAILABILTY_ZONE}"
+
+  network_interface {
+    device_index         = 0
+    network_interface_id = "${aws_network_interface.checkpoint_gateway_dmz_network.id}"
+  }
 
   tags {
     Name = "checkpoint_gateway_new"
@@ -30,14 +34,9 @@ resource "aws_instance" "checkpoint_gateway" {
 ## eth 0 dmz facing
 resource "aws_network_interface" "checkpoint_gateway_dmz_network" {
   subnet_id         = "${aws_subnet.checkpoint_dmz.id}"
-  private_ip        = "${var.GW_PRIVATE_IP}"
+  private_ip        = "${var.GW_PRIVATE_IP_ETH0}"
   source_dest_check = false
   security_groups   = ["${aws_security_group.checkpoint_dmz.id}"]
-
-  attachment {
-    device_index = 0
-    instance     = "${aws_instance.checkpoint_gateway.id}"
-  }
 }
 
 ## eth 1 internal
