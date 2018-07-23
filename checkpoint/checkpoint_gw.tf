@@ -16,19 +16,11 @@ data "aws_ami" "checkpoint_instance" {
 
 ## checkpoint_gateway ##
 resource "aws_instance" "checkpoint_gateway" {
-  ami               = "${data.aws_ami.checkpoint_instance.id}"
-  instance_type     = "m4.large"
-  key_name          = "${var.DEPLOY_KEY}"
-  availability_zone = "${var.AVAILABILTY_ZONE}"
-
-  network_interface {
-    device_index         = 0
-    network_interface_id = "${aws_network_interface.checkpoint_gateway_dmz_network.id}"
-  }
-
-  tags {
-    Name = "checkpoint_gateway_new"
-  }
+  ami                          = "${data.aws_ami.checkpoint_instance.id}"
+  instance_type                = "m4.large"
+  key_name                     = "${var.DEPLOY_KEY}"
+  availability_zone            = "${var.AVAILABILTY_ZONE}"
+  primary_network_interface_id = "${aws_network_interface.checkpoint_gateway_dmz_network.id}"
 }
 
 ## eth 0 dmz facing
