@@ -79,11 +79,10 @@ resource "aws_route_table_association" "checkpoint_internal_route" {
 resource "aws_route_table" "checkpoint_internal_route_table" {
   vpc_id = "${aws_vpc.checkpoint_2.id}"
 
-  route {
-    cidr_block           = "0.0.0.0/0"
-    instance_id          = "${aws_instance.checkpoint_gateway.id}"
-    network_interface_id = "${aws_network_interface.checkpoint_gateway_internal.id}"
-  }
+  //  route {
+  //    cidr_block           = "0.0.0.0/0"
+  //    network_interface_id = "${aws_network_interface.checkpoint_gateway_internal.id}"
+  //  }
 
   tags {
     Name = "checkpoint_internal_gw"
