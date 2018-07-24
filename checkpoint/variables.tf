@@ -21,3 +21,5 @@ variable "DEPLOY_KEY" {}
 variable "MANAGER_PRIVATE_IP" {}
 
 variable "MANAGER_PUBLIC_IP" {}
+
+variable "PATH_TO_PEM" {}
