@@ -1,19 +1,3 @@
-# deployment of checkpoint manager and gateway
-
-data "aws_ami" "checkpoint_instance" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["Check Point CloudGuard IaaS BYOL R80.10-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
 ## checkpoint_gateway ##
 resource "aws_instance" "checkpoint_gateway" {
   ami                    = "${data.aws_ami.checkpoint_instance.id}"
