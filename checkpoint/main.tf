@@ -11,7 +11,7 @@ data "aws_ami" "checkpoint_instance" {
 
   filter {
     name   = "name"
-    values = ["Check Point CloudGuard IaaS BYOL R80.10-*"]
+    values = ["Check Point CloudGuard IaaS BYOL R80.10-026.303-e926bdfe-4f7e-420d-9e3e-ceebf7edfcdd*"]
   }
 
   filter {
