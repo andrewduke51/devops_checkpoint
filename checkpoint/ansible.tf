@@ -28,7 +28,7 @@ resource "aws_instance" "ansible_server" {
 
   # This is where we configure the instance with ansible-playbook
   provisioner "local-exec" {
-    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ${var.PATH_TO_PEM} -i '${aws_instance.ansible_server.public_ip}, '../playbooks/roles/ansible/tasks/main.yml"
+    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ../playbooks/roles/ansible/tasks/master.yml -u ubuntu --private-key ${var.PATH_TO_PEM} -i '${aws_instance.ansible_server.public_ip},'"
   }
 
   tags {
