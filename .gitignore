@@ -1,5 +1,6 @@
 *.idea/*
 *scripts/*
+*pem-keys/*
 terraform.tfvars
 .terraform/
 *terraform.tfstate*

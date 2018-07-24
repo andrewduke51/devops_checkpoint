@@ -25,3 +25,5 @@ variable "MANAGER_PUBLIC_IP" {}
 variable "PATH_TO_PEM" {}
 
 variable "PATH_TO_ANSIBLE_YAML" {}
+
+variable "ANSIBLE_PRIVATE_IP" {}

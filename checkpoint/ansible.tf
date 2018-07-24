@@ -22,21 +22,20 @@ resource "aws_instance" "ansible_server" {
   vpc_security_group_ids      = ["${aws_security_group.checkpoint_dmz.id}"]
   key_name                    = "${var.DEPLOY_KEY}"
   availability_zone           = "${var.AVAILABILTY_ZONE}"
+  private_ip                  = "${var.ANSIBLE_PRIVATE_IP}"
   associate_public_ip_address = true
 
   //  user_data                   = "${data.template_cloudinit_config.ansible_init.rendered}"
 
+  provisioner "remote-exec" {
+    inline = ["sudo apt-get -y install python", "sudo apt-get -y autoremove"]
 
-  //  provisioner "remote-exec" {
-  //    inline = ["sudo apt-get -y install python", "sudo apt-get -y autoremove"]
-  //
-  //    connection {
-  //      type        = "ssh"
-  //      user        = "ubuntu"
-  //      private_key = "${file(var.PATH_TO_PEM)}"
-  //    }
-  //  }
-
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file(var.PATH_TO_PEM)}"
+    }
+  }
   provisioner "local-exec" {
     command = "sleep 120; ansible-playbook --ssh-common-args='-o StrictHostKeyChecking=no' -u ubuntu -i '${aws_instance.ansible_server.public_ip},' --private-key ${var.PATH_TO_PEM} ${var.PATH_TO_ANSIBLE_YAML}"
   }
