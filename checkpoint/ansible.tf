@@ -17,7 +17,7 @@
 
 resource "aws_instance" "ansible_server" {
   ami                    = "ami-06f5be6e"
-  instance_type          = "t1.micro"
+  instance_type          = "m1.large"
   subnet_id              = "${aws_subnet.checkpoint_dmz.id}"
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
   key_name               = "${var.DEPLOY_KEY}"
@@ -26,9 +26,18 @@ resource "aws_instance" "ansible_server" {
   //  user_data                   = "${data.template_cloudinit_config.ansible_init.rendered}"
   associate_public_ip_address = true
 
-  # This is where we configure the instance with ansible-playbook
+  provisioner "remote-exec" {
+    inline = ["sudo apt-get -y install python", "sudo apt-get -y autoremove"]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file(var.PATH_TO_PEM)}"
+    }
+  }
+
   provisioner "local-exec" {
-    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ../playbooks/roles/ansible/tasks/master.yml -u ubuntu --private-key ${var.PATH_TO_PEM} -i '${aws_instance.ansible_server.public_ip},'"
+    command = "ansible-playbook -u ubuntu -i '${aws_instance.ansible_server.public_ip},' --private-key ${var.PATH_TO_PEM} ${var.PATH_TO_ANSIBLE_YAML}"
   }
 
   tags {
