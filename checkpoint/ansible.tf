@@ -15,8 +15,8 @@
 //  }
 //}
 
-resource "aws_instance" "web_server" {
-  ami                    = "ami-b70554c8"
+resource "aws_instance" "ansible_server" {
+  ami                    = "ami-06f5be6e"
   instance_type          = "t2.micro"
   subnet_id              = "${aws_subnet.checkpoint_dmz.id}"
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
