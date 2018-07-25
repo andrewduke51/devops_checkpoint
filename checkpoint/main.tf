@@ -44,22 +44,42 @@ data "template_cloudinit_config" "ansible_init" {
   }
 }
 
-## set expert userdata ##
-data "template_file" "checkpoint_server" {
-  template = "${file("${path.module}/templates/checkpoint.sh.tpl")}"
+## set expert userdata gw ##
+data "template_file" "checkpoint_gw_server" {
+  template = "${file("${path.module}/templates/checkpoint_gw.sh.tpl")}"
 
   vars {
     gaia_pass = "${var.GAIA_PASS}"
   }
 }
 
-data "template_cloudinit_config" "checkpoint_init" {
+data "template_cloudinit_config" "checkpoint_gw_init" {
   gzip          = false
   base64_encode = false
 
   part {
     filename     = "checkpoint.sh"
     content_type = "text/x-shellscript"
-    content      = "${data.template_file.checkpoint_server.rendered}"
+    content      = "${data.template_file.checkpoint_gw_server.rendered}"
+  }
+}
+
+## set expert userdata man ##
+data "template_file" "checkpoint_man_server" {
+  template = "${file("${path.module}/templates/checkpoint_man.sh.tpl")}"
+
+  vars {
+    gaia_pass = "${var.GAIA_PASS}"
+  }
+}
+
+data "template_cloudinit_config" "checkpoint_man_init" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    filename     = "checkpoint.sh"
+    content_type = "text/x-shellscript"
+    content      = "${data.template_file.checkpoint_man_server.rendered}"
   }
 }
