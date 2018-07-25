@@ -27,8 +27,9 @@ resource "aws_instance" "ansible_server" {
 
   //  user_data                   = "${data.template_cloudinit_config.ansible_init.rendered}"
 
-  provisioner "remote-exec" {
-    inline = ["sudo apt-get -y install python", "sudo apt-get -y autoremove"]
+  provisioner "file" {
+    source      = "${var.SSH_PRIVATE_KEY}"
+    destination = "${var.PATH_TO_RM_SSH}"
 
     connection {
       type        = "ssh"
@@ -36,12 +37,11 @@ resource "aws_instance" "ansible_server" {
       private_key = "${file(var.SSH_PRIVATE_KEY)}"
     }
   }
-  provisioner "file" {
-    source      = "${var.SSH_PRIVATE_KEY}"
-    destination = "${var.PATH_TO_RM_SSH}"
-  }
   provisioner "local-exec" {
-    command = "sleep 120; ansible-playbook --ssh-common-args='-o StrictHostKeyChecking=no' -u ubuntu -i '${aws_instance.ansible_server.public_ip},' --private-key ${var.PATH_TO_PEM} ${var.PATH_TO_ANSIBLE_YAML}"
+    command = "sleep 10; ansible-playbook --ssh-common-args='-o StrictHostKeyChecking=no' -u ubuntu -i '${aws_instance.ansible_server.public_ip},' --private-key ${var.SSH_PRIVATE_KEY} ${var.PATH_TO_ANSIBLE_YAML}"
+  }
+  provisioner "remote-exec" {
+    inline = ["sudo apt-get -y autoremove"]
   }
   tags {
     Name = "checkpoint_ansible_new"
