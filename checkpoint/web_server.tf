@@ -28,6 +28,6 @@ resource "aws_instance" "web_server" {
 
   tags {
     Name     = "checkpoint_webserver_new"
-    downtime = "yes"
+    downtime = "${var.DOWNTIME_TAG}"
   }
 }

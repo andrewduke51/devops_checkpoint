@@ -33,3 +33,7 @@ variable "SSH_PUB_KEY" {}
 variable "SSH_PRIVATE_KEY" {}
 
 variable "PATH_TO_RM_SSH" {}
+
+variable "CHECKPOINT_INSTANCE_TYPE" {}
+
+variable "DOWNTIME_TAG" {}

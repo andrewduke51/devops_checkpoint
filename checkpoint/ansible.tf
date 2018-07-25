@@ -17,7 +17,7 @@
 
 resource "aws_instance" "ansible_server" {
   ami                         = "ami-06f5be6e"
-  instance_type               = "m1.large"
+  instance_type               = "m1.small"
   subnet_id                   = "${aws_subnet.checkpoint_dmz.id}"
   vpc_security_group_ids      = ["${aws_security_group.checkpoint_dmz.id}"]
   key_name                    = "${aws_key_pair.ssh_pub.key_name}"
@@ -51,6 +51,6 @@ resource "aws_instance" "ansible_server" {
   }
   tags {
     Name     = "checkpoint_ansible_new"
-    downtime = "yes"
+    downtime = "${var.DOWNTIME_TAG}"
   }
 }

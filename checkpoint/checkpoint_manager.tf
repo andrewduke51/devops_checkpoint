@@ -1,7 +1,7 @@
 ## checkpoint_manager ##
 resource "aws_instance" "checkpoint_manager" {
   ami                    = "${data.aws_ami.checkpoint_instance.id}"
-  instance_type          = "m4.large"
+  instance_type          = "${var.CHECKPOINT_INSTANCE_TYPE}"
   subnet_id              = "${aws_subnet.checkpoint_dmz.id}"
   private_ip             = "${var.MANAGER_PRIVATE_IP}"
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
@@ -10,7 +10,7 @@ resource "aws_instance" "checkpoint_manager" {
 
   tags {
     Name     = "checkpoint_manager_new"
-    downtime = "yes"
+    downtime = "${var.DOWNTIME_TAG}"
   }
 }
 

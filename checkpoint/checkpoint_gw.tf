@@ -1,7 +1,7 @@
 ## checkpoint_gateway ##
 resource "aws_instance" "checkpoint_gateway" {
   ami                    = "${data.aws_ami.checkpoint_instance.id}"
-  instance_type          = "m4.large"
+  instance_type          = "${var.CHECKPOINT_INSTANCE_TYPE}"
   availability_zone      = "${var.AVAILABILTY_ZONE}"
   subnet_id              = "${aws_subnet.checkpoint_dmz.id}"
   key_name               = "${aws_key_pair.ssh_pub.key_name}"
@@ -11,7 +11,7 @@ resource "aws_instance" "checkpoint_gateway" {
 
   tags {
     Name     = "checkpoint_gateway_new"
-    downtime = "yes"
+    downtime = "${var.DOWNTIME_TAG}"
   }
 }
 
