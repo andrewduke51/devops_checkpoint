@@ -42,6 +42,12 @@ resource "aws_instance" "ansible_server" {
   }
   provisioner "remote-exec" {
     inline = ["sudo apt-get -y autoremove"]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file(var.SSH_PRIVATE_KEY)}"
+    }
   }
   tags {
     Name = "checkpoint_ansible_new"

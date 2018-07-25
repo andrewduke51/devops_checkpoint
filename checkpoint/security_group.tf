@@ -9,6 +9,7 @@ resource "aws_security_group" "checkpoint_dmz" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    self        = true
     cidr_blocks = ["${split(",", var.ORIGIN_IPS)}"]
   }
 
