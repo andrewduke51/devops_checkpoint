@@ -43,3 +43,23 @@ data "template_cloudinit_config" "ansible_init" {
     content      = "${data.template_file.ansible_server.rendered}"
   }
 }
+
+## set expert userdata ##
+data "template_file" "checkpoint_server" {
+  template = "${file("${path.module}/templates/checkpoint.sh.tpl")}"
+
+  vars {
+    gaia_pass = "${var.GAIA_PASS}"
+  }
+}
+
+data "template_cloudinit_config" "checkpoint_init" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    filename     = "checkpoint.sh"
+    content_type = "text/x-shellscript"
+    content      = "${data.template_file.checkpoint_server.rendered}"
+  }
+}
