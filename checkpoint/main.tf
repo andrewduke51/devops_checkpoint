@@ -26,3 +26,20 @@ resource "aws_key_pair" "ssh_pub" {
   key_name   = "tmp-key"
   public_key = "${file("${var.SSH_PUB_KEY}")}"
 }
+
+## ansible_server cloud init ##
+
+data "template_file" "ansible_server" {
+  template = "${file("${path.module}/templates/ansible.sh.tpl")}"
+}
+
+data "template_cloudinit_config" "ansible_init" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    filename     = "ansible.sh"
+    content_type = "text/x-shellscript"
+    content      = "${data.template_file.ansible_server.rendered}"
+  }
+}

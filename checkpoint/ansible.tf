@@ -1,20 +1,4 @@
-## web_server ##
-
-//data "template_file" "web_server" {
-//  template = "${file("${path.module}/templates/ansible.sh.tpl")}"
-//}
-//
-//data "template_cloudinit_config" "ansible_init" {
-//  gzip          = false
-//  base64_encode = false
-//
-//  part {
-//    filename     = "ansible.sh"
-//    content_type = "text/x-shellscript"
-//    content      = "${data.template_file.web_server.rendered}"
-//  }
-//}
-
+## ansible server ##
 resource "aws_instance" "ansible_server" {
   ami                         = "ami-06f5be6e"
   instance_type               = "m1.small"
@@ -25,7 +9,7 @@ resource "aws_instance" "ansible_server" {
   private_ip                  = "${var.ANSIBLE_PRIVATE_IP}"
   associate_public_ip_address = true
 
-  //  user_data                   = "${data.template_cloudinit_config.ansible_init.rendered}"
+  //user_data                   = "${data.template_cloudinit_config.ansible_init.rendered}"
 
   provisioner "file" {
     source      = "${var.SSH_PRIVATE_KEY}"
