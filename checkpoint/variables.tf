@@ -30,4 +30,6 @@ variable "ANSIBLE_PRIVATE_IP" {}
 
 variable "SSH_PUB_KEY" {}
 
+variable "SSH_PRIVATE_KEY" {}
+
 variable "PATH_TO_RM_SSH" {}

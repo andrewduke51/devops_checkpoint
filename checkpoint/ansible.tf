@@ -33,7 +33,7 @@ resource "aws_instance" "ansible_server" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = "${file(var.PATH_TO_PEM)}"
+      private_key = "${file(var.SSH_PRIVATE_KEY)}"
     }
   }
   provisioner "file" {
