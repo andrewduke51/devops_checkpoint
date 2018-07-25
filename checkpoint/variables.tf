@@ -37,3 +37,5 @@ variable "PATH_TO_RM_SSH" {}
 variable "CHECKPOINT_INSTANCE_TYPE" {}
 
 variable "DOWNTIME_TAG" {}
+
+variable "ANSIBLE_PUBLIC_IP" {}

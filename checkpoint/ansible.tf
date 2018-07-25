@@ -38,3 +38,9 @@ resource "aws_instance" "ansible_server" {
     downtime = "${var.DOWNTIME_TAG}"
   }
 }
+
+## public IP ansible ##
+resource "aws_eip_association" "eip_association_ansible" {
+  instance_id = "${aws_instance.ansible_server.id}"
+  public_ip   = "${var.ANSIBLE_PUBLIC_IP}"
+}
