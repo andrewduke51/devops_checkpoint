@@ -19,3 +19,10 @@ data "aws_ami" "checkpoint_instance" {
     values = ["hvm"]
   }
 }
+
+## ssh public key
+
+resource "aws_key_pair" "ssh_pub" {
+  key_name   = "tmp-key"
+  public_key = "${file("${var.SSH_PUB_KEY}")}"
+}

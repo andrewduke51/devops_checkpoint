@@ -20,7 +20,7 @@ resource "aws_instance" "ansible_server" {
   instance_type               = "m1.large"
   subnet_id                   = "${aws_subnet.checkpoint_dmz.id}"
   vpc_security_group_ids      = ["${aws_security_group.checkpoint_dmz.id}"]
-  key_name                    = "${var.DEPLOY_KEY}"
+  key_name                    = "${aws_key_pair.ssh_pub.key_name}"
   availability_zone           = "${var.AVAILABILTY_ZONE}"
   private_ip                  = "${var.ANSIBLE_PRIVATE_IP}"
   associate_public_ip_address = true
@@ -35,6 +35,10 @@ resource "aws_instance" "ansible_server" {
       user        = "ubuntu"
       private_key = "${file(var.PATH_TO_PEM)}"
     }
+  }
+  provisioner "file" {
+    source      = "${var.SSH_PUB_KEY}"
+    destination = "${var.PATH_TO_RM_SSH}"
   }
   provisioner "local-exec" {
     command = "sleep 120; ansible-playbook --ssh-common-args='-o StrictHostKeyChecking=no' -u ubuntu -i '${aws_instance.ansible_server.public_ip},' --private-key ${var.PATH_TO_PEM} ${var.PATH_TO_ANSIBLE_YAML}"

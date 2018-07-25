@@ -5,7 +5,7 @@ resource "aws_instance" "checkpoint_manager" {
   subnet_id              = "${aws_subnet.checkpoint_dmz.id}"
   private_ip             = "${var.MANAGER_PRIVATE_IP}"
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
-  key_name               = "${var.DEPLOY_KEY}"
+  key_name               = "${aws_key_pair.ssh_pub.key_name}"
   availability_zone      = "${var.AVAILABILTY_ZONE}"
 
   tags {

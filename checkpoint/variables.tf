@@ -27,3 +27,7 @@ variable "PATH_TO_PEM" {}
 variable "PATH_TO_ANSIBLE_YAML" {}
 
 variable "ANSIBLE_PRIVATE_IP" {}
+
+variable "SSH_PUB_KEY" {}
+
+variable "PATH_TO_RM_SSH" {}

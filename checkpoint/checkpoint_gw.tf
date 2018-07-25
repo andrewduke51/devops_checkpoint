@@ -1,11 +1,10 @@
 ## checkpoint_gateway ##
 resource "aws_instance" "checkpoint_gateway" {
-  ami               = "${data.aws_ami.checkpoint_instance.id}"
-  instance_type     = "m4.large"
-  key_name          = "${var.DEPLOY_KEY}"
-  availability_zone = "${var.AVAILABILTY_ZONE}"
-  subnet_id         = "${aws_subnet.checkpoint_dmz.id}"
-
+  ami                    = "${data.aws_ami.checkpoint_instance.id}"
+  instance_type          = "m4.large"
+  availability_zone      = "${var.AVAILABILTY_ZONE}"
+  subnet_id              = "${aws_subnet.checkpoint_dmz.id}"
+  key_name               = "${aws_key_pair.ssh_pub.key_name}"
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
   private_ip             = "${var.GW_PRIVATE_IP_ETH0}"
   source_dest_check      = false
