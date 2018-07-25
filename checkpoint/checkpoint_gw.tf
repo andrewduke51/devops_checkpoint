@@ -10,7 +10,8 @@ resource "aws_instance" "checkpoint_gateway" {
   source_dest_check      = false
 
   tags {
-    Name = "checkpoint_gateway_new"
+    Name     = "checkpoint_gateway_new"
+    downtime = "yes"
   }
 }
 

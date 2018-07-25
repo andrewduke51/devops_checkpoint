@@ -50,6 +50,7 @@ resource "aws_instance" "ansible_server" {
     }
   }
   tags {
-    Name = "checkpoint_ansible_new"
+    Name     = "checkpoint_ansible_new"
+    downtime = "yes"
   }
 }

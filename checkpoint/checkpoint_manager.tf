@@ -9,7 +9,8 @@ resource "aws_instance" "checkpoint_manager" {
   availability_zone      = "${var.AVAILABILTY_ZONE}"
 
   tags {
-    Name = "checkpoint_manager_new"
+    Name     = "checkpoint_manager_new"
+    downtime = "yes"
   }
 }
 
