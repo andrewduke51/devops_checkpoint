@@ -37,7 +37,7 @@ resource "aws_instance" "ansible_server" {
     }
   }
   provisioner "file" {
-    source      = "${var.SSH_PUB_KEY}"
+    source      = "${var.SSH_PRIVATE_KEY}"
     destination = "${var.PATH_TO_RM_SSH}"
   }
   provisioner "local-exec" {
