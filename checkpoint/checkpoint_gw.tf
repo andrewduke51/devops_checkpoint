@@ -8,6 +8,7 @@ resource "aws_instance" "checkpoint_gateway" {
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
   private_ip             = "${var.GW_PRIVATE_IP_ETH0}"
   source_dest_check      = false
+  user_data              = "${data.template_cloudinit_config.checkpoint_init.rendered}"
 
   tags {
     Name     = "checkpoint_gateway_new"

@@ -7,6 +7,7 @@ resource "aws_instance" "checkpoint_manager" {
   vpc_security_group_ids = ["${aws_security_group.checkpoint_dmz.id}"]
   key_name               = "${aws_key_pair.ssh_pub.key_name}"
   availability_zone      = "${var.AVAILABILTY_ZONE}"
+  user_data              = "${data.template_cloudinit_config.checkpoint_init.rendered}"
 
   tags {
     Name     = "checkpoint_manager_new"
