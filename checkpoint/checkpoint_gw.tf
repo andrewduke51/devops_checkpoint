@@ -22,7 +22,6 @@ resource "aws_eip_association" "eip_association_checkpoint_gateway" {
   public_ip   = "${var.GW_PUBLIC_IP}"
 }
 
-## eth 1 internal
 resource "aws_network_interface" "checkpoint_gateway_internal" {
   subnet_id         = "${aws_subnet.checkpoint_internal.id}"
   private_ips       = ["${var.GW_PRIVATE_IP_ETH1}"]
